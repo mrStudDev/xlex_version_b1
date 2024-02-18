@@ -10,12 +10,15 @@ services:
       POSTGRES_PASSWORD: mr1703
   web:
     build: .
-    command: gunicorn xlexapp.wsgi:application --bind 0.0.0.0:8000
+    #command: gunicorn xlexapp.wsgi:application --bind 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+    user:
+      "${UID}:${GID}"
 volumes:
   postgres_data:

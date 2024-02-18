@@ -1,8 +1,15 @@
 # Assume que você está usando uma imagem base do Python que é Alpine
 FROM python:3.9-alpine
 
+ARG USER_ID
+ARG GROUP_ID
+RUN addgroup --gid $GROUP_ID user && \
+    adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+
+USER user
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
+
 
 # Instala dependências necessárias, incluindo as bibliotecas de desenvolvimento necessárias para psycopg2
 RUN apk update && apk add --no-cache \
@@ -24,3 +31,4 @@ COPY . /app
 
 # Comando para iniciar o aplicativo
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "xlexapp.wsgi:application"]
+
