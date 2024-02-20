@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-i86xpo+oqd&_kwuwf*+q8*r*5s+2!(7@h0en+hz@c_-j+-_f_1
 #ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'xlex.com.br', 'www.xlex.com.br']
 DEBUG = False
 
-ALLOWED_HOSTS = ['34.122.81.106', 'xlex.com.br', 'www.xlex.com.br']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 
 
