@@ -23,15 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i86xpo+oqd&_kwuwf*+q8*r*5s+2!(7@h0en+hz@c_-j+-_f_1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'xlex.com.br', 'www.xlex.com.br']
+#ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'xlex.com.br', 'www.xlex.com.br']
+DEBUG = False
+
+ALLOWED_HOSTS = ['34.122.81.106', 'xlex.com.br', 'www.xlex.com.br']
 
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_home',
+    'app_articles',
 ]
 
 MIDDLEWARE = [
@@ -123,8 +128,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 # Exemplo de configuração
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_URL = 'static/'
+STATIC_ROOT = '/static/'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = 'media/'
 
 
 # Default primary key field type

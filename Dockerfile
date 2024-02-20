@@ -1,17 +1,10 @@
-# Assume que você está usando uma imagem base do Python que é Alpine
+# Base Image
 FROM python:3.9-alpine
 
-ARG USER_ID
-ARG GROUP_ID
-RUN addgroup --gid $GROUP_ID user && \
-    adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
-
-USER user
-# Define o diretório de trabalho dentro do container
+# Working Directory
 WORKDIR /app
 
-
-# Instala dependências necessárias, incluindo as bibliotecas de desenvolvimento necessárias para psycopg2
+# System Dependencies
 RUN apk update && apk add --no-cache \
     gcc \
     musl-dev \
@@ -19,16 +12,16 @@ RUN apk update && apk add --no-cache \
     libffi-dev \
     jpeg-dev \
     zlib-dev \
-    curl
+    curl && \
+    rm -rf /var/cache/apk/*
 
-# Copia os requisitos do projeto e instala as dependências do Python
-COPY requirements.txt /app/
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+# Python Dependencies
+COPY requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Copia o resto do código do projeto para o diretório de trabalho
-COPY . /app
+# Copy Project Files
+COPY . .
 
-# Comando para iniciar o aplicativo
+# Start Command
 CMD ["gunicorn", "-b", "0.0.0.0:8000", "xlexapp.wsgi:application"]
-

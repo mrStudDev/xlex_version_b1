@@ -15,19 +15,11 @@
 </head>
 <body>
 
-    <div class="container">
-        {% for site in object_list %}
-            <h1 class="site-title">{{ site.site_name }}</h1>
-            <p class="site-subtitle">{{site.site_description}}</p>
-            <p>{{ site.meta_description }}</p>
-        {% endfor %}
-    </div>
-    <div class="container">
-    <a href="{% url 'app_articles:articles-list' %}">Articles</a>      
-    </div>
+    {% block 'articles_list' %}
 
-
+    {% endblock 'articles_list' %}
 </body>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
