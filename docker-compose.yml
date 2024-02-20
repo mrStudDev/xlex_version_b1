@@ -17,6 +17,9 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+    - ALLOWED_HOSTS=34.122.81.106,xlex.com.br,www.xlex.com.br
+
 
 volumes:
   postgres_data:
